@@ -559,6 +559,7 @@ async function loadMarkdownFiles(dir: string): Promise<
   const signal = AbortSignal.timeout(3000)
   let files: string[]
   try {
+    await stat(dir)
     files = useNative
       ? await findMarkdownFilesNative(dir, signal)
       : await ripGrep(
@@ -567,9 +568,6 @@ async function loadMarkdownFiles(dir: string): Promise<
           signal,
         )
   } catch (e: unknown) {
-    // Handle missing/inaccessible dir directly instead of pre-checking
-    // existence (TOCTOU). findMarkdownFilesNative already catches internally;
-    // ripGrep rejects on inaccessible target paths.
     if (isFsInaccessible(e)) return []
     throw e
   }

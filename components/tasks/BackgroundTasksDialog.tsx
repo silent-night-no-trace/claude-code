@@ -1,7 +1,7 @@
 import { c as _c } from "react/compiler-runtime";
 import { feature } from 'bun:bundle';
 import figures from 'figures';
-import React, { type ReactNode, useEffect, useEffectEvent, useMemo, useRef, useState } from 'react';
+import React, { type ReactNode, useCallback, useEffect, useMemo, useRef, useState } from 'react';
 import { isCoordinatorMode } from 'src/coordinator/coordinatorMode.js';
 import { useTerminalSize } from 'src/hooks/useTerminalSize.js';
 import { useAppState, useSetAppState } from 'src/state/AppState.js';
@@ -321,7 +321,13 @@ export function BackgroundTasksDialog({
 
   // Wrap onDone in useEffectEvent to get a stable reference that always calls
   // the current onDone callback without causing the effect to re-fire.
-  const onDoneEvent = useEffectEvent(onDone);
+  const onDoneRef = useRef(onDone);
+  onDoneRef.current = onDone;
+  const onDoneEvent = useCallback((result?: string, options?: {
+    display?: CommandResultDisplay;
+  }) => {
+    onDoneRef.current(result, options);
+  }, []);
   useEffect(() => {
     if (viewState.mode !== 'list') {
       const task = (typedTasks ?? {})[viewState.itemId];

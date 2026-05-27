@@ -1,7 +1,7 @@
 import type {
   ComputerUseInput,
   ComputerUseInputAPI,
-} from '@ant/computer-use-input'
+} from 'claude-code-local-computer-use-input'
 
 let cached: ComputerUseInputAPI | undefined
 
@@ -22,7 +22,7 @@ let cached: ComputerUseInputAPI | undefined
 export function requireComputerUseInput(): ComputerUseInputAPI {
   if (cached) return cached
   // eslint-disable-next-line @typescript-eslint/no-require-imports
-  const input = require('@ant/computer-use-input') as ComputerUseInput
+  const input = require('claude-code-local-computer-use-input') as ComputerUseInput
   if (!input.isSupported) {
     throw new Error('@ant/computer-use-input is not supported on this platform')
   }

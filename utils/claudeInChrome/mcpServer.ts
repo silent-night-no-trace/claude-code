@@ -3,7 +3,7 @@ import {
   createClaudeForChromeMcpServer,
   type Logger,
   type PermissionMode,
-} from '@ant/claude-for-chrome-mcp'
+} from 'claude-code-local-claude-for-chrome-mcp'
 import { StdioServerTransport } from '@modelcontextprotocol/sdk/server/stdio.js'
 import { format } from 'util'
 import { shutdownDatadog } from '../../services/analytics/datadog.js'

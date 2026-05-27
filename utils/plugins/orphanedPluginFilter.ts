@@ -16,6 +16,7 @@
  */
 
 import { dirname, isAbsolute, join, normalize, relative, sep } from 'path'
+import { stat } from 'fs/promises'
 import { ripGrep } from '../ripgrep.js'
 import { getPluginsDirectory } from './pluginDirectories.js'
 
@@ -49,6 +50,7 @@ export async function getGlobExclusionsForPluginCache(
   }
 
   try {
+    await stat(cachePath)
     // Find all .orphaned_at files within the plugin cache directory.
     // --hidden: marker is a dotfile. --no-ignore: don't let a stray
     // .gitignore hide it. --max-depth 4: marker is always at
