@@ -1,0 +1,1 @@
+Reduced-build fallback permissions prompt for external environments.

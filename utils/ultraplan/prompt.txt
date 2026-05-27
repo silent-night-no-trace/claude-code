@@ -1,0 +1,4 @@
+Reduced-build fallback ultraplan prompt.
+
+This repository snapshot does not include the original upstream ultraplan prompt asset.
+Use the reduced-build compatibility workflow and avoid assuming full remote CCR behavior.

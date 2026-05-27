@@ -1,0 +1,1 @@
+Reduced-build fallback prompt for the auto mode classifier.
