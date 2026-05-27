@@ -1,0 +1,11 @@
+blank_issues_enabled: false
+contact_links:
+  - name: Build and usage guide
+    url: https://github.com/silent-night-no-trace/claude-code/blob/main/docs/BUILD_AND_USAGE.md
+    about: Read this first for reduced/full local build commands, runtime expectations, and environment setup.
+  - name: Repo shape guide
+    url: https://github.com/silent-night-no-trace/claude-code/blob/main/docs/REPO_SHAPE.md
+    about: Use this if you are unsure whether a file belongs to the main snapshot, a compatibility layer, a stub, or a generated artifact.
+  - name: Security policy
+    url: https://github.com/silent-night-no-trace/claude-code/blob/main/docs/SECURITY.md
+    about: Read this before reporting sensitive issues or sharing logs that may contain tokens, headers, or local paths.
