@@ -1,0 +1,99 @@
+name: local-build-verification
+
+on:
+  pull_request:
+  push:
+    branches:
+      - main
+      - master
+  workflow_dispatch:
+
+jobs:
+  clean-state-bootstrap:
+    name: Clean-state bootstrap
+    runs-on: macos-latest
+    timeout-minutes: 30
+
+    steps:
+      - name: Check out repository
+        uses: actions/checkout@v4
+
+      - name: Set up Bun
+        uses: oven-sh/setup-bun@v2
+        with:
+          bun-version: 1.3.11
+
+      - name: Verify bootstrap reproducibility
+        run: npm run verify:bootstrap
+
+  maintenance-guardrails:
+    name: Maintenance guardrails
+    runs-on: macos-latest
+    timeout-minutes: 30
+
+    steps:
+      - name: Check out repository
+        uses: actions/checkout@v4
+
+      - name: Set up Bun
+        uses: oven-sh/setup-bun@v2
+        with:
+          bun-version: 1.3.11
+
+      - name: Run canonical local verification suite
+        run: npm run verify
+
+      - name: Run first-party test suite
+        run: npm run test
+
+  explicit-maintenance-checks:
+    name: Explicit maintenance checks
+    runs-on: macos-latest
+    timeout-minutes: 30
+
+    steps:
+      - name: Check out repository
+        uses: actions/checkout@v4
+
+      - name: Set up Bun
+        uses: oven-sh/setup-bun@v2
+        with:
+          bun-version: 1.3.11
+
+      - name: Build reduced and full CLI artifacts
+        run: npm run cli:build
+
+      - name: Run product-style CLI smoke checks
+        run: npm run cli:check
+
+      - name: Run typecheck no-regression gate
+        run: npm run verify:typecheck
+
+      - name: Run restoration contract check
+        run: npm run verify:restoration
+
+      - name: Run pseudo-TTY startup check
+        run: npm run verify:pty-startup
+
+  debug-surfaces:
+    name: Debug surface proofs
+    runs-on: macos-latest
+    timeout-minutes: 30
+
+    steps:
+      - name: Check out repository
+        uses: actions/checkout@v4
+
+      - name: Set up Bun
+        uses: oven-sh/setup-bun@v2
+        with:
+          bun-version: 1.3.11
+
+      - name: Run startup debug probe
+        run: npm run debug:startup
+
+      - name: Run print-mode debug probe
+        run: npm run debug:print
+
+      - name: Run inspector debug probe
+        run: npm run debug:inspector
